@@ -3,11 +3,11 @@ name: anki-set-up
 description: Set up Anki for use with the Anki commands by configuring MCP access, verifying AnkiConnect, and installing dependencies. Use when the user needs the Anki workflow prepared.
 ---
 
-Set up Anki for use with all `/anki:*` commands. Configures the MCP server, verifies AnkiConnect, installs dependencies, and recommends optimal Anki study settings.
+Set up Anki for use with all Anki skills (`anki-cs`, `anki-voca`, `anki-deck`). Configures the MCP server, verifies AnkiConnect, installs dependencies, and recommends optimal Anki study settings. This skill is agent-neutral: it never prescribes an agent-specific command. Each skill is invoked however the user's agent invokes skills/commands.
 
 # Context
 
-- Purpose: One-time setup that prepares Anki's MCP connection and dependencies so that `/anki:cs`, `/anki:voca`, `/anki:deck`, and any deck-based commands work immediately after. Decks and note types are created on demand by each individual command.
+- Purpose: One-time setup that prepares Anki's MCP connection and dependencies so that `anki-cs`, `anki-voca`, `anki-deck`, and any deck-based skills work immediately after. Decks and note types are created on demand by each individual skill.
 - Rule: **Follow every step of the decision tree in order. Do not skip or reorder steps unless the user explicitly instructs otherwise.**
 
 # Decision Tree
@@ -36,20 +36,31 @@ START
 
 ## A0. Anki MCP Not Configured
 
-The **`anki`** MCP server is not installed. Run the following via Bash tool:
+The **`anki`** MCP server is not available in the current agent. Do not assume any specific agent, CLI subcommand, or reload command exists — registration and reload mechanisms differ per agent (config-file edit, CLI subcommand, or app restart). Give the user the standard MCP server definition and let them register it through their own agent's MCP configuration.
 
-```bash
-claude mcp add anki -- npx -y @ankimcp/anki-mcp-server --stdio
-```
+Standard server definition (stdio transport):
 
-Note: The `--stdio` flag is required so the server speaks Claude Code's stdio MCP transport.
+| Field | Value |
+|---|---|
+| Server name | `anki` |
+| Command | `npx` |
+| Arguments | `-y @ankimcp/anki-mcp-server --stdio` |
+
+Note: `--stdio` selects the stdio MCP transport, which every MCP-capable agent supports.
 
 Then tell the user:
 
-> **Anki MCP 서버를 설치했습니다.**
-> **`/reload-plugins`를 입력하여 MCP를 활성화한 뒤, `/anki:set-up`을 다시 실행해주세요.**
+> **Anki MCP 서버가 설정되어 있지 않습니다.**
+> 사용 중인 에이전트의 MCP 설정에 아래 서버를 추가해주세요:
+>
+> | 항목 | 값 |
+> |---|---|
+> | 서버 이름 | `anki` |
+> | 실행 명령 | `npx -y @ankimcp/anki-mcp-server --stdio` |
+>
+> 추가한 뒤 **에이전트의 MCP 설정을 다시 불러오거나 에이전트를 재시작**한 다음, `anki-set-up`을 다시 실행해주세요.
 
-**STOP — cannot proceed until MCP is loaded.**
+**STOP — cannot proceed until the MCP server is loaded.**
 
 ## A1. Anki MCP Connection Failed
 
@@ -64,13 +75,13 @@ The `anki` MCP server is registered but cannot reach Anki. Guide the user:
 >    - **확인(OK)** 클릭 → **Anki 재시작**
 > 3. **AnkiConnect 활성화 확인:** 브라우저에서 `http://localhost:8765` 접속 시 응답이 있어야 합니다.
 >
-> 위 단계 완료 후 `/anki:set-up`을 다시 실행해주세요.
+> 위 단계 완료 후 `anki-set-up`을 다시 실행해주세요.
 
 **STOP — cannot proceed without connection.**
 
 ## A2. Install edge-tts
 
-Required for `/anki:voca` audio generation.
+Required for `anki-voca` audio generation.
 
 Check if installed:
 
@@ -94,7 +105,7 @@ python3 -m edge_tts --help 2>/dev/null && echo "INSTALLED" || echo "NOT_INSTALLE
 
 > **⚠️ edge-tts 설치에 실패했습니다.**
 >
-> `/anki:voca` 명령어의 음성 생성 기능이 작동하지 않습니다.
+> `anki-voca`의 음성 생성 기능이 작동하지 않습니다.
 > 카드 자체는 정상적으로 생성되지만, 발음 및 문장 오디오가 첨부되지 않습니다.
 >
 > 수동으로 설치하려면:
@@ -106,7 +117,7 @@ python3 -m edge_tts --help 2>/dev/null && echo "INSTALLED" || echo "NOT_INSTALLE
 > python3 -m pip install edge-tts
 > ```
 >
-> 설치 완료 후 `/anki:voca`를 사용하면 오디오가 정상적으로 생성됩니다.
+> 설치 완료 후 `anki-voca`를 사용하면 오디오가 정상적으로 생성됩니다.
 
 Mark as ❌ in the A3 summary and continue. Do NOT stop — the rest of the setup is still valid.
 
@@ -130,11 +141,13 @@ Show a setup summary and optimal study settings.
 
 ### Available Commands
 
-| 명령어 | 설명 |
+각 스킬은 사용 중인 에이전트의 호출 방식에 따라 실행하세요.
+
+| 스킬 | 설명 |
 |---|---|
-| `/anki:cs {topic}` | Computer Science 면접 카드 생성 |
-| `/anki:voca {word}` | 영어 단어 카드 생성 (음성 포함) |
-| `/anki:deck {name}` | 새 덱 커맨드 생성 |
+| `anki-cs` {topic} | Computer Science 면접 카드 생성 |
+| `anki-voca` {word} | 영어 단어 카드 생성 (음성 포함) |
+| `anki-deck` {name} | 새 덱 생성 워크플로 |
 
 ### Optimal Anki Study Settings
 

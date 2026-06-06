@@ -54,28 +54,11 @@ START
 
 ## A0. Anki MCP Not Configured
 
-The **`anki`** MCP server is not installed. Run the following via Bash tool:
-
-```bash
-claude mcp add anki -- npx -y @ankimcp/anki-mcp-server --stdio
-```
-
-Note: The `--stdio` flag is required so the server speaks Claude Code's stdio MCP transport.
-
-Then tell the user: **"Please type `/reload-plugins` to activate the MCP, then retry."** **STOP — cannot proceed until MCP is loaded.**
+No `anki` MCP tools are available. Invoke the **`anki-set-up`** skill to configure the Anki MCP server, then retry. **STOP.**
 
 ## A1. Anki MCP Connection Failed
 
-The `anki` MCP server is registered but cannot reach Anki. Instruct the user to:
-
-1. **Verify Anki is running** — the Anki app must be open.
-2. **Install AnkiConnect addon**:
-   - Open Anki → **Tools → Add-ons → Get Add-ons...**
-   - Enter code: `2055492159`
-   - Click **OK** → **Restart Anki**
-3. **Confirm AnkiConnect is active** — visit `http://localhost:8765` in a browser; it should return a response.
-
-Ask the user to retry after completing the steps above. **STOP — cannot proceed without MCP.**
+The `anki` MCP tools exist but cannot reach Anki. Invoke the **`anki-set-up`** skill to verify Anki and AnkiConnect, then retry. **STOP.**
 
 ## A2. Create Deck
 
