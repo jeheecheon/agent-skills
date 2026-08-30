@@ -159,8 +159,8 @@ addNotes → deckName: "Vocabulary", modelName: "Vocabulary",
 ### Step 1: Generate two mp3s via edge-tts
 
 ```bash
-python3 -m edge_tts --voice en-US-AriaNeural --text "{word}" --write-media /tmp/pronunciation_{word}_en.mp3
-python3 -m edge_tts --voice en-US-AriaNeural --text "{full_sentence_with_word_filled_in}" --write-media /tmp/sentence_{word}_en.mp3
+python3 -m edge_tts --voice en-AU-WilliamMultilingualNeural --text "{word}" --write-media /tmp/pronunciation_{word}_en.mp3
+python3 -m edge_tts --voice en-AU-WilliamMultilingualNeural --text "{full_sentence_with_word_filled_in}" --write-media /tmp/sentence_{word}_en.mp3
 ```
 
 ### Step 2: Store both in Anki media
