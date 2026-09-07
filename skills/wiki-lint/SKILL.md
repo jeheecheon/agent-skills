@@ -7,7 +7,7 @@ description: Validate wiki integrity and resolve inconsistencies. Trigger when t
 - **Wiki**: Directory `wiki/`.
 - **Index**: File `wiki/index.md`.
 - **Log**: File `wiki/log.md`.
-- **Orphan**: A markdown file lacking inbound links.
+- **Orphan**: A markdown file lacking inbound links from other content pages (excluding Index).
 
 # 2. Decision Tree
 
@@ -16,7 +16,7 @@ START
 │
 ├─ [A0] Precondition Validation
 │  │  Assert existence of Wiki and `AGENTS.md`
-│  ├─ Missing → Instruct user to run `/wiki-setup` → STOP
+│  ├─ Missing → Instruct user to run `/wiki-topic-setup` → STOP
 │  └─ Exists → [A1]
 │
 ├─ [A1] Index Validation
@@ -49,7 +49,7 @@ START
 
 ## 3.1. [A0] Precondition Validation
 - Action: Check for the existence of Wiki and `AGENTS.md`.
-- Condition A (Missing): Output instruction to execute `/wiki-setup` and halt.
+- Condition A (Missing): Output instruction to execute `/wiki-topic-setup` and halt.
 - Condition B (Exists): Proceed to [A1].
 
 ## 3.2. [A1] Index Validation
@@ -82,4 +82,4 @@ START
 - Output: Present findings as a summary list to the user. Proceed to [A6].
 
 ## 3.7. [A6] Operation Logging
-- Action: Append `## [YYYY-MM-DD] lint | <Summary>` to Log, including counts of issues found and resolved. Finish execution.
+- Action: Append `- [YYYY-MM-DD] lint | <Summary>` to Log as a single bullet item without line breaks, including counts of issues found/resolved. Finish execution.

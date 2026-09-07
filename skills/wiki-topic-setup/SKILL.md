@@ -1,6 +1,6 @@
 ---
-name: wiki-setup
-description: Initialize a new LLM Wiki System in the current working directory. Trigger when the user inputs "/wiki-setup".
+name: wiki-topic-setup
+description: Initialize a new LLM Wiki System in the current working directory. Trigger when the user inputs "/wiki-topic-setup".
 ---
 
 # 1. Terminology
@@ -19,13 +19,13 @@ START
 │  └─ Missing → [A1]
 │
 ├─ [A1] Filesystem Initialization
-│  │  Execute `mkdir -p raw wiki && echo "# Index" > wiki/index.md && echo "# Log" > wiki/log.md`
+│  │  Execute `mkdir -p raw wiki && curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-topic-setup/index.template.md" > wiki/index.md && curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-topic-setup/log.template.md" > wiki/log.md`
 │  └─ OK → [A2]
 │
 └─ [A2] Schema Retrieval
    │  Check if `AGENTS.md` already contains `# Wiki System Rules`
    ├─ Already present → Skip retrieval → END
-   ├─ Missing or absent → Execute `[ -f AGENTS.md ] && echo "" >> AGENTS.md; curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-setup/AGENTS.template.md" >> AGENTS.md`
+   ├─ Missing or absent → Execute `[ -f AGENTS.md ] && echo "" >> AGENTS.md; curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-topic-setup/AGENTS.template.md" >> AGENTS.md`
    │  ├─ OK → END
    │  └─ FAIL (non-zero exit) → Output network error → STOP
 ```
@@ -38,12 +38,12 @@ START
 - Condition B (Missing): Proceed to [A1].
 
 ## 3.2. [A1] Filesystem Initialization
-- Action: Execute `mkdir -p raw wiki && echo "# Index" > wiki/index.md && echo "# Log" > wiki/log.md`.
+- Action: Execute `mkdir -p raw wiki && curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-topic-setup/index.template.md" > wiki/index.md && curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-topic-setup/log.template.md" > wiki/log.md`.
 - Postcondition: Baseline topology is instantiated. Proceed to [A2].
 
 ## 3.3. [A2] Schema Retrieval
 - Action: Check if `AGENTS.md` already contains the header `# Wiki System Rules`.
   - Condition A (Already present): Schema already installed. Skip retrieval and finish execution.
-  - Condition B (Missing or absent): Execute `[ -f AGENTS.md ] && echo "" >> AGENTS.md; curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-setup/AGENTS.template.md" >> AGENTS.md`.
+  - Condition B (Missing or absent): Execute `[ -f AGENTS.md ] && echo "" >> AGENTS.md; curl -sL "https://raw.githubusercontent.com/jeheecheon/agent-skills/main/skills/wiki-topic-setup/AGENTS.template.md" >> AGENTS.md`.
     - Success: Schema retrieved. Finish execution.
     - Failure: Network error or non-zero exit code. Output error and halt execution.

@@ -4,6 +4,8 @@ description: Process a raw source document and distribute its facts across the w
 ---
 
 # 1. Terminology
+- **Raw Repository**: Directory `raw/`.
+- **Wiki**: Directory `wiki/`.
 - **Raw Document**: Immutable source material located in `raw/`.
 - **Index**: The catalog file `wiki/index.md`.
 - **Log**: The chronological record `wiki/log.md`.
@@ -14,8 +16,8 @@ description: Process a raw source document and distribute its facts across the w
 START
 │
 ├─ [A0] Precondition Validation
-│  │  Assert existence of `wiki/` and `AGENTS.md`
-│  ├─ Missing → Instruct user to run `/wiki-setup` → STOP
+│  │  Assert existence of `raw/`, `wiki/`, and `AGENTS.md`
+│  ├─ Missing → Instruct user to run `/wiki-topic-setup` → STOP
 │  └─ Exists → [A1]
 │
 ├─ [A1] Source Summarization
@@ -51,8 +53,8 @@ START
 # 3. Actions
 
 ## 3.1. [A0] Precondition Validation
-- Action: Check for the existence of `wiki/` and `AGENTS.md`.
-- Condition A (Missing): Output instruction to execute `/wiki-setup` and halt.
+- Action: Check for the existence of `raw/`, `wiki/`, and `AGENTS.md`.
+- Condition A (Missing): Output instruction to execute `/wiki-topic-setup` and halt.
 - Condition B (Exists): Proceed to [A1].
 
 ## 3.2. [A1] Source Summarization
@@ -81,11 +83,11 @@ START
 - Invariant: Index exclusively targets leaf files. Proceed to [A5].
 
 ## 3.7. [A5] Operation Logging
-- Action: Append `## [YYYY-MM-DD] ingest | <Source Title>` to Log, enumerating modified pages and any contradictions flagged. Finish execution.
+- Action: Append `- [YYYY-MM-DD] ingest | <Source Title> | <Modified Pages> | <Contradictions>` to Log as a single bullet item without line breaks. Finish execution.
 
 # 4. Formatting Constraints
 Generated content must satisfy:
 1. **Deduplication**: One fact per document. Utilize relative markdown links.
-2. **Numbering**: ATX headings require hierarchical decimal prefixes. Numbers are append-only.
+2. **Numbering**: ATX headings (excluding Index and Log) require hierarchical decimal prefixes. Numbers are append-only.
 3. **Partitioning**: Split files exceeding 300 lines.
 4. **Index Topology**: Entries in Index follow `- [path/file.md](path/file.md) — <description>. Read when working on <task>.`

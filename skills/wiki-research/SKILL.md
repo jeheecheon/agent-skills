@@ -14,7 +14,7 @@ START
 │
 ├─ [A0] Precondition Validation
 │  │  Assert existence of Wiki, Raw Repository, and `AGENTS.md`
-│  ├─ Missing → Instruct user to run `/wiki-setup` → STOP
+│  ├─ Missing → Instruct user to run `/wiki-topic-setup` → STOP
 │  └─ Exists → [A1]
 │
 ├─ [A1] Query Execution
@@ -39,7 +39,7 @@ START
 
 ## 3.1. [A0] Precondition Validation
 - Action: Check for the existence of Wiki, Raw Repository, and `AGENTS.md`.
-- Condition A (Missing): Output instruction to execute `/wiki-setup` and halt.
+- Condition A (Missing): Output instruction to execute `/wiki-topic-setup` and halt.
 - Condition B (Exists): Proceed to [A1].
 
 ## 3.2. [A1] Query Execution

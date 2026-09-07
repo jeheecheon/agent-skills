@@ -16,7 +16,7 @@ START
 │
 ├─ [A0] Precondition Validation
 │  │  Assert existence of Wiki and `AGENTS.md`
-│  ├─ Missing → Instruct user to run `/wiki-setup` → STOP
+│  ├─ Missing → Instruct user to run `/wiki-topic-setup` → STOP
 │  └─ Exists → [A1]
 │
 ├─ [A1] Value Extraction
@@ -52,7 +52,7 @@ START
 
 ## 3.1. [A0] Precondition Validation
 - Action: Check for the existence of Wiki and `AGENTS.md`.
-- Condition A (Missing): Output instruction to execute `/wiki-setup` and halt.
+- Condition A (Missing): Output instruction to execute `/wiki-topic-setup` and halt.
 - Condition B (Exists): Proceed to [A1].
 
 ## 3.2. [A1] Value Extraction
@@ -84,11 +84,11 @@ START
 - Invariant: Index exclusively targets leaf files. Proceed to [A5].
 
 ## 3.7. [A5] Operation Logging
-- Action: Append `## [YYYY-MM-DD] compound | <Target>` to Log, enumerating modifications and any contradictions flagged. Finish execution.
+- Action: Append `- [YYYY-MM-DD] compound | <Target> | <Modifications> | <Contradictions>` to Log as a single bullet item without line breaks. Finish execution.
 
 # 4. Formatting Constraints
 Generated content must satisfy:
 1. **Deduplication**: One fact per document. Utilize relative markdown links.
-2. **Numbering**: ATX headings require hierarchical decimal prefixes. Numbers are append-only.
+2. **Numbering**: ATX headings (excluding Index and Log) require hierarchical decimal prefixes. Numbers are append-only.
 3. **Partitioning**: Split files exceeding 300 lines.
 4. **Index Topology**: Entries in Index follow `- [path/file.md](path/file.md) — <description>. Read when working on <task>.`
