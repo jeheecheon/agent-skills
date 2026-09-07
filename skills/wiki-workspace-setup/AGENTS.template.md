@@ -13,7 +13,7 @@ Creation of `raw/` or `wiki/` directories directly within the Workspace (§ 1) i
 Execution of any wiki skill (e.g., `ingest`, `lint`, `compound`, `research`) must be scoped to a specific Topic Subdirectory (§ 1). If the target is ambiguous, prompt the user for clarification before execution.
 
 ## 2.3. Index Maintenance
-Whenever a new Topic Subdirectory is created, it must be appended to the Subdirectory Index (§ 4) in the format `- <directory_name>: <brief_description>`.
+Whenever a new Topic Subdirectory is created, it must be appended to the Subdirectory Index (§ 4) in the format `- [Topic Title](directory_name): <brief_description>`.
 
 # 3. Operations Decision Tree
 
@@ -45,4 +45,4 @@ START
 
 # 4. Subdirectory Index
 
-<!-- Add new topics here in the format: - `directory_name`: description -->
+<!-- Add new topics here in the format: - [Topic Title](directory_name): description -->
