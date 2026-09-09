@@ -1,6 +1,6 @@
 ---
 name: anki-deck
-description: Scaffold a new per-deck Anki skill under the shared cross-agent skills directory so the user can add cards to a custom deck from any agent. Use when the user wants to create a custom Anki deck workflow.
+description: Scaffold a new per-deck Anki skill under the shared cross-agent skills directory so the user can add cards to a custom deck from any agent. Use when the user wants to create a custom Anki deck workflow. Trigger when the user inputs "/anki-deck".
 ---
 
 Scaffold a new per-deck Anki skill at `~/.agents/skills/anki-{slug}/SKILL.md`.

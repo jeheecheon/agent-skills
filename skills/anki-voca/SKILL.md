@@ -1,6 +1,6 @@
 ---
 name: anki-voca
-description: Create Anki vocabulary cards from English words, including note creation and audio attachment. Use when the user wants English vocabulary flashcards in Anki.
+description: Create Anki vocabulary cards from English words, including note creation and audio attachment. Use when the user wants English vocabulary flashcards in Anki. Trigger when the user inputs "/anki-voca".
 ---
 
 Create Anki vocabulary cards from English words provided by the user.

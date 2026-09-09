@@ -1,6 +1,6 @@
 ---
 name: anki-cs
-description: Create Anki computer science flashcards optimized for technical interview preparation. Use when the user wants Korean-language CS interview cards in Anki.
+description: Create Anki computer science flashcards optimized for technical interview preparation. Use when the user wants Korean-language CS interview cards in Anki. Trigger when the user inputs "/anki-cs".
 ---
 
 Create Anki computer science flashcards optimized for technical interview preparation.

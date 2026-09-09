@@ -1,6 +1,6 @@
 ---
 name: anki-set-up
-description: Set up Anki for use with the Anki commands by configuring MCP access, verifying AnkiConnect, and installing dependencies. Use when the user needs the Anki workflow prepared.
+description: Set up Anki for use with the Anki commands by configuring MCP access, verifying AnkiConnect, and installing dependencies. Use when the user needs the Anki workflow prepared. Trigger when the user inputs "/anki-set-up".
 ---
 
 Set up Anki for use with all Anki skills (`anki-cs`, `anki-voca`, `anki-deck`). Configures the MCP server, verifies AnkiConnect, installs dependencies, and recommends optimal Anki study settings. This skill is agent-neutral: it never prescribes an agent-specific command. Each skill is invoked however the user's agent invokes skills/commands.
