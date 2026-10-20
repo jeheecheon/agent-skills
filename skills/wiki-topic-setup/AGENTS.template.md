@@ -1,3 +1,5 @@
+# Wiki System Rules
+
 # 1. Terminology
 
 - **Raw Repository**: `raw/` directory. Immutable source documents.

@@ -1,3 +1,5 @@
+# Multi-Topic Wiki Workspace
+
 # 1. Terminology
 
 - **Workspace**: The root directory containing multiple topic subdirectories.
